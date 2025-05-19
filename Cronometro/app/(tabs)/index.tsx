@@ -1,14 +1,37 @@
-import { StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+export default function ContadorSimples() {
+  // Estado para armazenar o valor do contador
+  const [contador, setContador] = useState(0);
 
-export default function TabOneScreen() {
+  // Funções para manipular o contador usando declaração de função normal
+  function aumentar() {
+    setContador(contador + 1);
+  }
+
+  function diminuir() {
+    setContador(contador - 1);
+  }
+
+  function resetar() {
+    setContador(0);
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      {/* Título do App */}
+      <Text style={styles.titulo}>Contador App</Text>
+
+      {/* Valor do Contador */}
+      <Text style={styles.contador}>{contador}</Text>
+
+      {/* Botões de Controle - Usando o componente Button padrão */}
+      <View style={styles.botoes}>
+        <Button title="-" onPress={diminuir} color="red" />
+        <Button title="Reset" onPress={resetar} color="gray" />
+        <Button title="+" onPress={aumentar} color="green" />
+      </View>
     </View>
   );
 }
@@ -18,14 +41,20 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
-  title: {
-    fontSize: 20,
+  titulo: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  contador: {
+    fontSize: 40,
     fontWeight: 'bold',
+    marginBottom: 20,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
+  botoes: {
+    flexDirection: 'row',
     width: '80%',
+    justifyContent: 'space-between',
   },
 });
