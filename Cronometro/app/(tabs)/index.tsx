@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function ContadorSimples() {
-  // Estado para armazenar o valor do contador
   const [contador, setContador] = useState(0);
 
-  // Funções para manipular o contador usando declaração de função normal
   function aumentar() {
     setContador(contador + 1);
   }
@@ -20,18 +18,31 @@ export default function ContadorSimples() {
 
   return (
     <View style={styles.container}>
-      {/* Título do App */}
       <Text style={styles.titulo}>Contador App</Text>
 
-      {/* Valor do Contador */}
-      <Text style={styles.contador}>{contador}</Text>
-
-      {/* Botões de Controle - Usando o componente Button padrão */}
-      <View style={styles.botoes}>
-        <Button title="-" onPress={diminuir} color="red" />
-        <Button title="Reset" onPress={resetar} color="gray" />
-        <Button title="+" onPress={aumentar} color="green" />
+      <View style={styles.contadorContainer}>
+        <Text style={styles.contador}>{contador}</Text>
       </View>
+
+      <Text style={styles.mensagem}>
+        {contador === 0 ? 'Contador reiniciado!' : ''}
+      </Text>
+
+      <View style={styles.botoes}>
+        <TouchableOpacity style={[styles.botao, { backgroundColor: '#f44336' }]} onPress={diminuir}>
+          <Text style={styles.botaoTexto}>-</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.botao, { backgroundColor: '#00BCD4' }]} onPress={resetar}>
+          <Text style={styles.botaoTexto}>Reset</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.botao, { backgroundColor: '#4CAF50' }]} onPress={aumentar}>
+          <Text style={styles.botaoTexto}>+</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={styles.rodape}>Aprenda React Native com Expo!</Text>
     </View>
   );
 }
@@ -41,20 +52,58 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#F5F5F5',
   },
   titulo: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 30,
+  },
+  contadorContainer: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+    elevation: 5, // Sombra no Android
+    shadowColor: '#000', // Sombra no iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   contador: {
-    fontSize: 40,
+    fontSize: 42,
     fontWeight: 'bold',
-    marginBottom: 20,
+  },
+  mensagem: {
+    fontSize: 16,
+    color: '#555',
+    marginBottom: 30,
   },
   botoes: {
     flexDirection: 'row',
-    width: '80%',
-    justifyContent: 'space-between',
+    gap: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  botao: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  botaoTexto: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  rodape: {
+    position: 'absolute',
+    bottom: 20,
+    color: '#888',
   },
 });
